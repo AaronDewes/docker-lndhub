@@ -44,5 +44,5 @@ jobs:
                 --cache-from "type=local,src=/tmp/.buildx-cache" \
                 --cache-to "type=local,dest=/tmp/.buildx-cache" \
                 --platform ${{matrix.platform}} \
-                --tag ${{ secrets.DOCKER_HUB_USER }}/lndhub:$BRANCH \
+                --tag ${{ secrets.DOCKER_HUB_USERNAME }}/lndhub:$BRANCH \
                 --output "type=registry" ./
