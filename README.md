@@ -1,5 +1,5 @@
 # docker-lndhub
 
-Docker Image to Run LNDHub for Bluewallet etc (for BTCPay Server)
+Docker Image to Run LNDHub.
 
-This image should work with any LND implementation but was built with the purpose of integrating into Umbrel.
+This image was designed to be used as an Umbrel app in the future and probably won't work anywhere else.
