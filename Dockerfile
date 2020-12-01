@@ -17,4 +17,4 @@ USER lndhubuser
 ENV PORT=3000
 EXPOSE 3000
 
-CMD [ "/lndhub/node_modules/.bin/babel-node", "index.js" ]
+CMD cp $LND_CERT_FILE /lndhub/ && cp $LND_ADMIN_MACAROON_FILE /lndhub/ && /lndhub/node_modules/.bin/babel-node index.js
