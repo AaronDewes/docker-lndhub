@@ -14,11 +14,7 @@ RUN mkdir /lndhub/logs && chown -R 1001:1001 /lndhub/
 
 USER lndhubuser
 
-
-# VOLUME /lndhub  # is this needed?
-
+ENV PORT=3000
 EXPOSE 3000
 
-CMD /lndhub/node_modules/.bin/babel-node index.js
-
-# CMD [ "/lndhub/node_modules/.bin/babel-node", "index.js" ] ### alternative to above - which one is better?
+CMD [ "/lndhub/node_modules/.bin/babel-node", "index.js" ]
