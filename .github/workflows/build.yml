@@ -16,11 +16,15 @@ jobs:
           - linux/amd64
           - linux/arm64
           - linux/arm/v7
-        version:
-          - v0.8.6
     steps:
       - name: Checkout project
         uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -33,8 +37,12 @@ jobs:
       - name: Show available Docker buildx platforms
         run: echo ${{ steps.buildx.outputs.platforms }}
 
+     
       - name: Run Docker buildx
         run: |
-          docker buildx build \
-          --platform ${{matrix.platform}} \
-          --tag AaronDewes/lndhub:test .
+                docker buildx build \
+                --cache-from "type=local,src=/tmp/.buildx-cache" \
+                --cache-to "type=local,dest=/tmp/.buildx-cache" \
+                --platform ${{matrix.platform}} \
+                --tag ${{ secrets.DOCKER_HUB_USER }}/lndhub:$BRANCH \
+                --output "type=registry" ./
