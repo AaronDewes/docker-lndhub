@@ -1,11 +1,11 @@
-FROM alpine:${VER_ALPINE} AS perms
+FROM alpine:latest AS perms
 
 RUN adduser --disabled-password \
             --home "/lndhub" \
             --gecos "" \
             "lnd"
 
-FROM node:buster-slim
+FROM node:buster-slim AS final
 
 COPY  --from=perms /etc/group /etc/passwd /etc/shadow  /etc/
 
