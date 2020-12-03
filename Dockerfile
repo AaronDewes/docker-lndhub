@@ -1,9 +1,13 @@
-FROM node:buster-slim
+FROM alpine:${VER_ALPINE} AS perms
 
 RUN adduser --disabled-password \
-            --home "/data" \
+            --home "/lndhub" \
             --gecos "" \
             "lnd"
+
+FROM node:buster-slim
+
+COPY  --from=perms /etc/group /etc/passwd /etc/shadow  /etc/
 
 RUN apt-get update && apt-get -y install git python3 make g++ && rm -rf /var/lib/apt/lists/* && apt-get clean
 RUN git clone https://github.com/BlueWallet/LndHub.git /lndhub
