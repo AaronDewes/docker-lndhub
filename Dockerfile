@@ -12,8 +12,7 @@ WORKDIR /lndhub
 
 RUN npm i
 
-RUN mkdir /lndhub/logs && chown -R 1000:1000 /lndhub/
-
+RUN mkdir /lndhub/logs && chown -R lnd:lnd /lndhub
 USER lnd
 
 ENV PORT=3000
