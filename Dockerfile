@@ -10,7 +10,7 @@ FROM node:buster-slim AS final
 COPY  --from=perms /etc/group /etc/passwd /etc/shadow  /etc/
 
 RUN apt-get update && apt-get -y install git python3 make g++ && rm -rf /var/lib/apt/lists/* && apt-get clean
-RUN git clone https://github.com/BlueWallet/LndHub.git /lndhub
+RUN git clone https://github.com/AaronDewes/LndHub.git -b patch-1 /lndhub
 
 WORKDIR /lndhub
 
