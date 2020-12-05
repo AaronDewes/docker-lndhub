@@ -9,7 +9,7 @@ FROM node:buster-slim AS final
 
 COPY  --from=perms /etc/group /etc/passwd /etc/shadow  /etc/
 
-RUN apt-get update && apt-get -y install git python3 make g++ && rm -rf /var/lib/apt/lists/* && apt-get clean
+RUN apt-get update && apt-get -y install git python3 && rm -rf /var/lib/apt/lists/* && apt-get clean
 RUN git clone https://github.com/AaronDewes/LndHub.git -b master /lndhub
 
 WORKDIR /lndhub
@@ -19,7 +19,7 @@ RUN npm i
 RUN mkdir /lndhub/logs && chown -R lnd:lnd /lndhub
 
 # Cleanup
-RUN apt-get -y purge make g++ git && apt-get -y autoremove
+RUN apt-get -y purge git && apt-get -y autoremove
 
 USER lnd
 
