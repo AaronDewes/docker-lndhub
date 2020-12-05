@@ -2,4 +2,5 @@
 
 Docker Image to Run LNDHub.
 
-This image was designed to be used as an Umbrel app in the future and probably won't work anywhere else.
+This image is optimized for Umbrel, and it may only there.
+LNDHub will be released as an Umbrel app on the official app system in the future.
