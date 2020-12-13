@@ -8,21 +8,19 @@ RUN adduser --disabled-password \
 
 FROM node:buster-slim AS builder
 
-COPY  --from=perms /etc/group /etc/passwd /etc/shadow  /etc/
-
 RUN apt-get update && apt-get -y install git python3 && rm -rf /var/lib/apt/lists/* && apt-get clean
-RUN git clone https://github.com/AaronDewes/LndHub.git -b master /lndhub
+RUN git clone https://github.com/BlueWallet/LndHub.git -b master /lndhub
 
 WORKDIR /lndhub
 
 RUN npm i
 
-RUN mkdir /lndhub/logs && chown -R lnd:lnd /lndhub
-
 FROM node:buster-slim
 
 COPY  --from=perms /etc/group /etc/passwd /etc/shadow  /etc/
 COPY  --from=builder /lndhub /lndhub
+
+RUN mkdir /lndhub/logs && chown -R lnd:lnd /lndhub
 
 USER lnd
 
