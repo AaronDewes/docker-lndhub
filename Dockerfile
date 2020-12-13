@@ -19,9 +19,6 @@ RUN npm i
 
 RUN mkdir /lndhub/logs && chown -R lnd:lnd /lndhub
 
-# Cleanup
-RUN apt-get -y purge git && apt-get -y autoremove
-
 FROM node:buster-slim
 
 COPY  --from=perms /etc/group /etc/passwd /etc/shadow  /etc/
