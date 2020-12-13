@@ -1,11 +1,12 @@
 FROM alpine:latest AS perms
+# This is a bit weird, but required to make sure the LND data can be accessed
 
 RUN adduser --disabled-password \
             --home "/lndhub" \
             --gecos "" \
             "lnd"
 
-FROM node:buster-slim AS final
+FROM node:buster-slim AS builder
 
 COPY  --from=perms /etc/group /etc/passwd /etc/shadow  /etc/
 
@@ -20,6 +21,11 @@ RUN mkdir /lndhub/logs && chown -R lnd:lnd /lndhub
 
 # Cleanup
 RUN apt-get -y purge git && apt-get -y autoremove
+
+FROM node:buster-slim
+
+COPY  --from=perms /etc/group /etc/passwd /etc/shadow  /etc/
+COPY  --from=builder /lndhub /lndhub
 
 USER lnd
 
