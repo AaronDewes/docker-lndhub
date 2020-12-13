@@ -9,7 +9,7 @@ RUN adduser --disabled-password \
 FROM node:buster-slim AS builder
 
 RUN apt-get update && apt-get -y install git python3
-RUN git clone https://github.com/BlueWallet/LndHub.git -b master /lndhub
+RUN git clone https://github.com/AaronDewes/LndHub.git -b master /lndhub
 
 WORKDIR /lndhub
 
