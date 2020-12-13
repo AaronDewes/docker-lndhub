@@ -1,6 +1,6 @@
 FROM alpine:latest AS perms
-# This is a bit weird, but required to make sure the LND data can be accessed
 
+# This is a bit weird, but required to make sure the LND data can be accessed. 
 RUN adduser --disabled-password \
             --home "/lndhub" \
             --gecos "" \
@@ -8,12 +8,16 @@ RUN adduser --disabled-password \
 
 FROM node:buster-slim AS builder
 
-RUN apt-get update && apt-get -y install git python3 && rm -rf /var/lib/apt/lists/* && apt-get clean
+RUN apt-get update && apt-get -y install git python3
 RUN git clone https://github.com/BlueWallet/LndHub.git -b master /lndhub
 
 WORKDIR /lndhub
 
 RUN npm i
+
+# Delete git data as it's not needed inside the container
+
+RUN rm -rf .git
 
 FROM node:buster-slim
 
